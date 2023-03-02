@@ -63,6 +63,26 @@ template <typename ANY> ANY mirror_number(ANY num)
 
 	return reversed_number;
 }
+int mirror_number(int num)
+{
+	int reversed_number = 0;
+	int num_digit = 1;
+	while (num % long(pow(10, num_digit)) != num)
+	{
+		num_digit++;
+	}
+	
+	int step = 0;
+	do
+	{
+		step++;
+		reversed_number = reversed_number + (num % int(pow(10, step)) * int(pow(10, num_digit - step)));
+		//step++;
+	} while (num % long(pow(10, step)) != num);
+
+	return reversed_number;
+}
+
 void mirror_number_demo()
 {
 	std::cout << "\n" << "mirror_number(1234) = " << mirror_number(1234);
