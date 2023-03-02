@@ -56,8 +56,9 @@ template <typename ANY> ANY mirror_number(ANY num)
 	int step=0;
 	do
 	{
-	//	reversed_number = reversed_number+(num % long(pow(10, step)) * long(pow(10, num_digit - step-1));
 		step++;
+		//reversed_number = reversed_number+(num % long(pow(10, step)) * long(pow(10, num_digit - step)));
+		//step++;
 	} while (num % long(pow(10, step)) != num);
 
 	return reversed_number;
