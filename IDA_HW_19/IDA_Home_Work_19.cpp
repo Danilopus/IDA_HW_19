@@ -67,11 +67,7 @@ void mirror_number_demo()
 	std::cout << "\n" << "mirror_number(1234) = " << mirror_number(1234);
 	std::cout << "\n" << "mirror_number(95) = " << mirror_number(95);
 	std::cout << "\n" << "mirror_number(140) = " << mirror_number(95);
-	std::cout << "\n" << "mirror_number(5) = " << mirror_number(95);
-
-	
-	
-	
+	std::cout << "\n" << "mirror_number(5) = " << mirror_number(95);	
 }
 
 //Task 3
@@ -117,8 +113,6 @@ void Sort_Array_from_N_demo()
 	Sort_Array_from_N(Random_Array_float, Size, Random_Array_float[N]);
 	Array_Console_Out(Random_Array_float, Size);
 }
-
-
 
 //Task 4
 template <typename ANY> ANY Search_First_Ordinary_in_Array(ANY arr[], int Size)
