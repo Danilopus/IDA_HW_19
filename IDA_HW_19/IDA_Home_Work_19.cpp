@@ -9,14 +9,13 @@
 int Get_Int_SA();				// String-analysis вариант фильтра INTEGER
 int Get_Int_Positive();			// String-Analysis вариант проверки ввода INTEGER_POSITIVE		
 int Get_Int_PG();				// peek&get вариант проверки ввода INTEGER	
-
 //----------- DOUBLE Input filtrers --------------------------------
 double Get_Dbl_SA();		// String-analysis вариант фильтра DOUBLE.
 double Get_Dbl_Positive();	// String-analysis вариант фильтра DOUBLE_POSITIVE
 double Get_Dbl_PG();		// peek&get вариант проверки ввода DOUBLE	
+//----------- Service functions ------------------------------------
 int Get_Random(int Range_min, int Range_max);
 double Get_Random(double Range_min, double Range_max);
-void Fill_Array_with_Random_Int(int arr[], int Size, int Range_min, int Range_max);
 template <typename ANY> void Fill_Array_with_Random(ANY arr[], int Size, ANY Range_min, ANY Range_max);
 template <typename ANY> void Array_Console_Out(ANY arr[], int Size);
 
@@ -37,6 +36,8 @@ template <typename ANY> ANY Max_Common_Divider(ANY num1, ANY num2)
 void Max_Common_Divider_demo()
 {
 	std::cout << "\n"<<"Max_Common_Divider(10, 15) = " << Max_Common_Divider(10, 15);
+	std::cout << "\n" << "Max_Common_Divider(8, 48) = " << Max_Common_Divider(8, 48);
+	std::cout << "\n" << "Max_Common_Divider(184, 2056) = " << Max_Common_Divider(184, 2056);
 	std::cout << "\n" << "Max_Common_Divider(10LL, 15LL) = " << Max_Common_Divider(10LL, 15LL);
 	//std::cout << "\n" << "Max_Common_Divider(10.0, 15.0) = " << Max_Common_Divider(10.0, 15.0); //couldn't be compiled
 	//std::cout << "\n" << "Max_Common_Divider(10.0F, 15.0F) = " << Max_Common_Divider(10.0F, 15.0F); //couldn't be compiled
@@ -45,6 +46,10 @@ void Max_Common_Divider_demo()
 }
 
 //Task 2
+template <typename ANY> ANY What_Digit_in_Position(ANY Number, int position)
+{
+	return (Number % int(pow(10, position))) / int(pow(10, position - 1));
+}
 template <typename ANY> ANY mirror_number(ANY num)
 {
 	ANY reversed_number = 0;
@@ -57,38 +62,23 @@ template <typename ANY> ANY mirror_number(ANY num)
 	do
 	{
 		step++;
-		//reversed_number = reversed_number+(num % long(pow(10, step)) * long(pow(10, num_digit - step)));
-		//step++;
+		reversed_number += What_Digit_in_Position(num, step) * (pow(10, num_digit - step));
+
 	} while (num % long(pow(10, step)) != num);
 
 	return reversed_number;
 }
-int mirror_number(int num)
-{
-	int reversed_number = 0;
-	int num_digit = 1;
-	while (num % long(pow(10, num_digit)) != num)
-	{
-		num_digit++;
-	}
-	
-	int step = 0;
-	do
-	{
-		step++;
-		reversed_number = reversed_number + (num % int(pow(10, step)) * int(pow(10, num_digit - step)));
-		//step++;
-	} while (num % long(pow(10, step)) != num);
-
-	return reversed_number;
-}
-
 void mirror_number_demo()
 {
 	std::cout << "\n" << "mirror_number(1234) = " << mirror_number(1234);
 	std::cout << "\n" << "mirror_number(95) = " << mirror_number(95);
-	std::cout << "\n" << "mirror_number(140) = " << mirror_number(95);
-	std::cout << "\n" << "mirror_number(5) = " << mirror_number(95);	
+	std::cout << "\n" << "mirror_number(140) = " << mirror_number(140);
+	std::cout << "\n" << "mirror_number(5) = " << mirror_number(5);	
+	std::cout << "\n" << "mirror_number(1234LL) = " << mirror_number(1234LL);
+	std::cout << "\n" << "mirror_number(95LL) = " << mirror_number(95LL);
+	std::cout << "\n" << "mirror_number(short(140) = " << mirror_number(short(140));
+	std::cout << "\n" << "mirror_number(char(5)) = " << mirror_number(char(5));
+	//std::cout << "\n" << "mirror_number(1234.0) = " << mirror_number(1234.0);
 }
 
 //Task 3
@@ -99,7 +89,7 @@ template <typename ANY> int  Sort_Array_from_N(ANY arr[], int Size, ANY NUM)
 		if (arr[i] == NUM)
 		{
 			std::sort(arr + i+1, arr + Size);
-			std::cout << "\nN = " << NUM << " is on " << i << " position\n";
+			std::cout << "\nN = " << NUM << " is on " << i << " position. Array is sorted after this position.\n";
 			return i;
 		}
 	}
@@ -165,7 +155,7 @@ void Search_First_Ordinary_in_Array_demo()
 	int Random_Array[Size];
 	srand(time(NULL));
 	std::cout << "\nRandom_Array [-999...999]:\n";
-	Fill_Array_with_Random_Int(Random_Array, Size, -999, 999);
+	Fill_Array_with_Random(Random_Array, Size, -999, 999);
 	Array_Console_Out(Random_Array, Size);
 	if (Search_First_Ordinary_in_Array(Random_Array, Size))
 	{
@@ -420,13 +410,6 @@ double Get_Random(double Range_min=-9999.0, double Range_max=9999.0)
 		std::swap(Range_min, Range_max);
 	}
 	return 	Range_min + (Range_max - Range_min) * double(rand() % RAND_MAX) / RAND_MAX;	
-}
-void Fill_Array_with_Random_Int(int arr[], int Size, int Range_min, int Range_max)
-{
-	for (int i = 0; i < Size; i++)
-	{
-		arr[i] = Get_Random(Range_min, Range_max);
-	}
 }
 template <typename ANY> void Array_Console_Out(ANY arr[], int Size)
 {
